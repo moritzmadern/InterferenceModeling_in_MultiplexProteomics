@@ -5,17 +5,11 @@ An R implementation for interference modeling and subsequent interference-correc
 
 ## Contents:
 
-The main R script that performs the entire computational workflow on the basis of specified input parameters:
--  **IM.Rmd**
+-  **IM.Rmd** : The main R script that performs the entire computational workflow on the basis of specified input parameters
 
+-  **functions_IM.R** : Functions required in IM.Rmd
 
-Functions to be sourced in IM.Rmd:
--  **functions_IM.R**
-
-
-A demo dataset + userguide:
-- **Demo**
-Check out Userguide.pdf in the Demo folder for detailed instructions and explanations on the demo and the workflow in general.
+- **Demo** : A folder containing a demo dataset + userguide. Check out Userguide.pdf in this folder for detailed instructions and explanations on the demo and the workflow in general.
 
 
 
