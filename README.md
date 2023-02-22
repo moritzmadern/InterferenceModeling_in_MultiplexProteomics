@@ -5,9 +5,9 @@ An R implementation for interference modeling and subsequent interference-correc
 
 ## Contents:
 
--  **IM.Rmd** : The R script that performs the entire computational workflow on the basis of specified input parameters.
+- **IM.Rmd** : The R script that performs the entire computational workflow on the basis of specified input parameters.
 
--  **functions_IM.R** : Functions required in IM.Rmd script.
+- **functions_IM.R** : Functions required in IM.Rmd script.
 
 - **Demo** : A folder containing a demo dataset + userguide. Check out Userguide.pdf contained in this folder for detailed instructions and explanations on the demo and the workflow in general.
 
@@ -15,9 +15,9 @@ An R implementation for interference modeling and subsequent interference-correc
 
 ## Required Data Input:
 
-- A PSM table. Currently supported are MaxQuants **msms.txt** and Fragpipe's **psm.tsv**. Other formats might require minor adjustments to the script.
+- A PSM table. Currently supported are MaxQuant's **msms.txt** and Fragpipe's **psm.tsv**. Other formats might require minor adjustments to the script.
 
-- Corresponding **Thermo raw files** of the search, located in a separate Folder.
+- Corresponding **Thermo raw files** used in the database search, located in a separate folder.
 
 - The **rawStallion** Windows command line application to read relevant data from Thermo raw files and write to tsv files. Download [here](https://github.com/fstanek/rawStallion).
 
