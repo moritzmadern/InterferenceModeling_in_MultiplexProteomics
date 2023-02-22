@@ -2,7 +2,8 @@
 An R implementation for interference modeling and subsequent interference-correction in MS2-based multiplex proteomics. Further contains a demo dataset + userguide to get familiar with the workflow.
 
 
-### Contents:
+
+## Contents:
 
 The main R script that performs the entire computational workflow on the basis of specified input parameters:
 -  **IM.Rmd**
@@ -14,11 +15,11 @@ Functions to be sourced in IM.Rmd:
 
 A demo dataset + userguide:
 - **Demo**
+Check out Userguide.pdf in the Demo folder for detailed instructions and explanations on the demo and the workflow in general.
 
-In this folder, check out Userguide.pdf for detailed instructions and explanations.
 
 
-### Required Data Input:
+## Required Data Input:
 
 - A PSM table. Currently supported are MaxQuants **msms.txt** and Fragpipe's **psm.tsv**. Other formats might require minor adjustments to the script.
 
@@ -29,12 +30,14 @@ In this folder, check out Userguide.pdf for detailed instructions and explanatio
 - An isotopic impurity matrix for isotopic impurity correction. Details on the required format are described in the parameter section of IM.Rmd.
 
 
-### Data Output:
+
+## Data Output:
 
 - a modified PSM table named **modified_PSM.txt**. This PSM table contains normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as calculated PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
 
 
-### Session Info
+
+## Session Info
 
 ```
 R version 4.1.2 (2021-11-01)
