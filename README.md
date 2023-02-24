@@ -13,7 +13,7 @@ An R implementation for interference modeling and subsequent interference-correc
 
 
 
-## Required Data Input:
+## Data Input:
 
 - A PSM table. Currently supported are MaxQuant's **msms.txt** and Fragpipe's **psm.tsv**. Other formats might require minor adjustments to the script.
 
