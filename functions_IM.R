@@ -1,7 +1,4 @@
-## This R-file contains all the required functions for the Interference Modelling script ("IM.Rmd")
-
-
-
+## This R-file contains functions required for running the interference modeling script ("IM.Rmd")
 
 
 

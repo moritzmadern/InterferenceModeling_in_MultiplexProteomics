@@ -5,7 +5,7 @@ An R implementation for interference modeling and subsequent interference-correc
 
 ## Contents:
 
-- **IM.Rmd** : The R script that performs the entire computational workflow on the basis of specified input parameters.
+- **IM.Rmd** : R markdown script that performs the entire computational workflow on the basis of specified input parameters.
 
 - **functions_IM.R** : Functions required in IM.Rmd script.
 
