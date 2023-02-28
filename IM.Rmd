@@ -226,15 +226,15 @@ cl <- makeCluster(cores - 1)
 registerDoParallel(cl=cl)
 
 
-## Apply function (see functions.R) to extract spectral features (noise values, reporter ion intensities, PPF, etc.) from raw the raw file data. It might take some time to go through every single PSM! Tasks are split on multiple cores to process multiple raw files in parallel.
+## Apply function to extract spectral features (noise values, reporter ion intensities, PPF, etc.) from raw the raw file data. It takes some time to go through every single PSM, as the program extracts the spectral information of corresponding MS2 scans and parent MS1 scans. Tasks are split on multiple cores to process multiple raw files in parallel.
 t1 <- Sys.time() 
-spectral_features <- extract_spectral_features_in_parallel(rawfilefolder_filepath = rawfilefolder_filepath, 
-                                                               msms = df_msms,
-                                                               scan_number = "Scan.number",
-                                                               rawfile = "Raw.file",
-                                                               charge = "Charge",
-                                                               reporter_ions = reporter_ions,
-                                                               mass_error_tolerance = 0.005)
+spectral_features <- extract_spectral_features_in_parallel(rawfilefolder_filepath = rawfilefolder_filepath,   # (see functions_IM.R)
+                                                           msms = df_msms,
+                                                           scan_number = "Scan.number",
+                                                           rawfile = "Raw.file",
+                                                           charge = "Charge",
+                                                           reporter_ions = reporter_ions,
+                                                           mass_error_tolerance = 0.005)
 stopCluster(cl)
 t2 <- Sys.time()
 writeLines("Duration of spectral feature extraction: ")
@@ -400,7 +400,7 @@ df_msms$precursorIntensity <- df_msms$TIW*df_msms$PPF
 
 
 ## Calculate empirical peptide density estimated
-peptide_density <- calculate_peptide_density(msms=df_msms,              # (see functions.R)
+peptide_density <- calculate_peptide_density(msms=df_msms,              # (see functions_IM.R)
                                              rawfile = "Raw.file",
                                              retentionTime = "Retention.time",
                                              precursorMZ = "precursorMz", 
@@ -438,17 +438,17 @@ df_msms$Y <- rowSums(m_reporter, na.rm=TRUE)
 ## Note: This section filters PSMs based on a minimum number threshold of valid values (i.e. non-NA values) in at least one group, if a group vector was specified.
 if (!is.null(groups)){
   
-  # Print "groups" and "minimum_valid_values" parameters
+  # print "groups" and "minimum_valid_values" parameters
   writeLines("groups:")
   print(groups)
-  writeLines("threshold of minimum valid values threshold in at least one group")
+  writeLines("\nthreshold of minimum valid values threshold in at least one group")
   print(minimum_valid_threshold)
   
   # print dimensions before filtering
   writeLines("\nDimension of PSM-table before filtering:")
   print(dim(df_msms))
   
-  # For each PSM, calculate the maximum number of values across all groups
+  # for each PSM, calculate the maximum number of values across all groups
   m_reporter <- as.matrix(df_msms[,names_reporterCol])
   m_reporter[m_reporter == 0] <- NA
   v_max_valid_perGroup <- numeric(nrow(df_msms))
@@ -457,10 +457,10 @@ if (!is.null(groups)){
     v_max_valid_perGroup[i] <- max(tapply(!is.na(m_i), INDEX = groups, FUN=sum))
   }
   
-  # Visualize distribution of maximum number of valid values per group (across all groups)
+  # visualize distribution of maximum number of valid values per group (across all groups)
   barplot(table(factor(v_max_valid_perGroup)), col="grey", border="grey", xlab="max # of valid values per group before filtering", ylab="frequency", main = "distribution before filtering")
   
-  # Perform filtering based on valid values
+  # perform filtering based on valid values
   bool_keep <- v_max_valid_perGroup >= minimum_valid_threshold
   df_msms <- df_msms[bool_keep,]
   
@@ -564,22 +564,22 @@ pepClass <- rep("", times=nrow(df_msms))
 for (i in unique(df_msms$rawfileID)){
   print(paste0("##### ", i , " #####"))
   df_msms_i <- df_msms %>% filter(rawfileID == i)
-  pepClass_i <- determine_pepChar_classes(msms = df_msms_i,              # (see functions.R)
-                                             Y_var = "Y",
-                                             X_var = c("factorCharge_2",
-                                                       "factorCharge_3",
-                                                       "factorCharge_4",
-                                                       "factorLabels_1",
-                                                       "factorLabels_2",
-                                                       "factorLabels_3",
-                                                       "seqChar_D",
-                                                       "seqChar_E",
-                                                       "seqChar_R",
-                                                       "seqChar_K",
-                                                       "seqChar_H",
-                                                       "factorExtra",
-                                                       "factor_PTM",
-                                                        min_number = 100))
+  pepClass_i <- determine_pepChar_classes(msms = df_msms_i,              # (see functions_IM.R)
+                                          Y_var = "Y",
+                                          X_var = c("factorCharge_2",
+                                                    "factorCharge_3",
+                                                    "factorCharge_4",
+                                                    "factorLabels_1",
+                                                    "factorLabels_2",
+                                                    "factorLabels_3",
+                                                    "seqChar_D",
+                                                    "seqChar_E",
+                                                    "seqChar_R",
+                                                    "seqChar_K",
+                                                    "seqChar_H",
+                                                    "factorExtra",
+                                                    "factor_PTM"),
+                                          min_number = 100)
   pepClass[df_msms$rawfileID == i] <- pepClass_i
 }
 df_msms$pepClass <- pepClass
@@ -896,7 +896,7 @@ names_reporterCol <- colnames(m_norm)
 ```{r Calculate interference-corrected normalized reporter ion intensities based on EIL values by arithmetic subtraction of interference}
 
 ## Perform interference correction
-m_corrected <- interference_correction(reporterI_matrix = as.matrix(df_msms[,names_reporterCol]),  # (see functions.R)
+m_corrected <- interference_correction(reporterI_matrix = as.matrix(df_msms[,names_reporterCol]),  # (see functions_IM.R)
                                         EIL = df_msms$EIL,
                                         max_interference = 0.8,
                                         min_intensity = df_msms$minIntensity_MS2) %>% as.data.frame()
@@ -927,6 +927,7 @@ print(paste0(getwd(),"/Results/modified_PSM.txt"))
 save.image(paste0("session_including_EILs_",Sys.Date(),".RData"))
 
 ```
+
 This concludes the standard section of the script. In the following, PSM-wise reporter ion intensities and EIL values are additionally aggregated to peptides and proteins by the respective columns contained in the PSM table. Intensities are aggregated by summation; metrics like EIL and PPF values are aggregated by calculating weighted averages, with weights corresponding to the relative contribution to the aggregated feature's reporter ion intensity. 
 
 However, it may be of interest to perform aggregation of interference-corrected reporter ion intensities and EIL-values from PSM level to higher feature level (e.g. peptides, proteins) as defined by other tables in search engine output (i.e. "proteinGroups.txt", "Phospho (STY)Sites.txt"). In MaxQuant, this is made possible by cross-referencing columns (e.g. "MS/MS IDs" column) within the tables of higher aggregation level. I created two scripts to perform this aggregation - one for the aggregation of PSMs to MaxQuant proteins listed in the "proteinGroups.txt" table; another for aggregation of PSMs to MaxQuant sites listed in site tables (i.e. "Phospho (STY)Sites.txt", "Acetyl (K)Sites.txt"). You can find the two scripts (named "Aggregate_PSMs_to_Proteins.Rmd" and "Aggregate_PSMs_to_Sites.Rmd", respectively) on GitHub: https://github.com/moritzmadern/SiteToProteinNormalization_in_MultiplexProteomics. 
@@ -996,7 +997,7 @@ write.table(df_peptide, file = paste0(getwd(),"/Results/Peptides.txt"), sep = "\
 ```
 
 
-```{r Optional: Aggregate to proteinGroups level (by msqrob2's smallestUniqueGroups function) and export result as table, warning = FALSE}
+```{r Optional: Aggregate to protein level (by msqrob2's smallestUniqueGroups function) and export result as table, warning = FALSE}
 
 ## Kick proteins that are ambiguous. This is a very conservative aggregation approach that does not consider any razor peptides
 library(msqrob2)    ## Bioconductor
