@@ -3,7 +3,13 @@ An R implementation for interference modeling and subsequent interference-correc
 
 
 
-## Contents:
+## Dependencies
+
+This workflow requires the **rawStallion** Windows command line application to read Thermo raw files and write relevant data to tsv files. Download [here](https://github.com/fstanek/rawStallion).
+
+
+
+## Contents
 
 - **IM.Rmd** : R markdown script that performs the entire computational workflow on the basis of specified input parameters.
 
@@ -13,19 +19,17 @@ An R implementation for interference modeling and subsequent interference-correc
 
 
 
-## Data Input:
+## Data Input
 
 - A PSM table. Currently supported are MaxQuant's **msms.txt** and Fragpipe's **psm.tsv**. Other formats might require minor adjustments to the script.
 
 - Corresponding **Thermo raw files** used in the database search, located in a separate folder.
 
-- The **rawStallion** Windows command line application to read relevant data from Thermo raw files and write to tsv files. Download [here](https://github.com/fstanek/rawStallion).
-
 - An isotopic impurity matrix for isotopic impurity correction. Details on the required format are described in the parameter section of IM.Rmd.
 
 
 
-## Data Output:
+## Data Output
 
 - a modified PSM table named **modified_PSM.txt**. This PSM table contains normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as calculated PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
 
@@ -60,5 +64,32 @@ other attached packages:
 [33] stringr_1.4.0               dplyr_1.0.7                 purrr_0.3.4                 readr_2.1.1                
 [37] tidyr_1.1.4                 tibble_3.1.6                ggplot2_3.3.6               tidyverse_1.3.1 
 ```
+
+
+
+## Data Output
+
+- a modified PSM table named **modified_PSM.txt**. This PSM table contains normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as calculated PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
+
+
+
+## Used Libraries and other Resources
+
+- Msnbase: Gatto, L. & Lilley, K. S. Msnbase-an R/Bioconductor package for isobaric tagged mass spectrometry data visualization, processing and quantitation. Bioinformatics 28, 288–289 (2012).
+
+- fields: Douglas Nychka, Reinhard Furrer, John Paige, S. S. (2021). “fields: Tools for spatial data.”
+
+- limma: Ritchie, M. E. et al. limma powers differential expression analyses for RNA-sequencing and microarray studies. Nucleic Acids Res. 43, e47 (2015).
+
+- DESeq2: Anders, S. & Huber, W. Differential expression analysis for sequence count data. Genome Biol. 11, R106 (2010).
+
+- msqrob2: Goeminne, L. J. E., Gevaert, K. & Clement, L. Peptide-level robust ridge regression improves estimation, sensitivity, and specificity in data-dependent quantitative label-free shotgun proteomics. Mol. Cell. Proteomics 15, 657–668 (2016).
+
+- MaxQuant: Tyanova, S., Temu, T. & Cox, J. The MaxQuant computational platform for mass spectrometry-based shotgun proteomics. Nat. Protoc. 11, 2301–2319 (2016).
+
+- plot3D: Soetaert, K. plot3D: Plotting Multi-Dimensional Data.
+
+- ggplot2: Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. (Springer-Verlag New York).
+
 
 
