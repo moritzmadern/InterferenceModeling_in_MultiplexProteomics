@@ -31,7 +31,7 @@ This workflow requires the **rawStallion** Windows command line application to r
 
 ## Data Output
 
-- a modified PSM table named **modified_PSM.txt**. This PSM table contains normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as several PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
+- a modified PSM table named **modified_PSM.txt**. This PSM table contains additional columns such as normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as several PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
 
 
 
