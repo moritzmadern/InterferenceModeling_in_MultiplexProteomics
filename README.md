@@ -67,12 +67,6 @@ other attached packages:
 
 
 
-## Data Output
-
-- a modified PSM table named **modified_PSM.txt**. This PSM table contains normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as calculated PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
-
-
-
 ## Used Libraries and other Resources
 
 - Msnbase: Gatto, L. & Lilley, K. S. Msnbase-an R/Bioconductor package for isobaric tagged mass spectrometry data visualization, processing and quantitation. Bioinformatics 28, 288–289 (2012).
