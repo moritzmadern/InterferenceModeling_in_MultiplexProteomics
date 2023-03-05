@@ -74,7 +74,8 @@ extract_spectral_features_in_parallel <- function(rawfilefolder_filepath = rawfi
                                PIC = numeric(1),
                                precursorMz = numeric(1),
                                minIntensity_MS2 = numeric(1),
-                               parent_MS1 = "preceding")
+                               parent_MS1 = "preceding",
+                               compensationVoltage=character(1))
       
       
       # Initiate reporter intensity vector for PSM i in rawfile r
@@ -91,9 +92,10 @@ extract_spectral_features_in_parallel <- function(rawfilefolder_filepath = rawfi
       #Save MS2 spectrum i from index file
       df_index_r_i <- df_index_r[df_index_r$ScanNumber == scannr_i, ]
       
-      # Save rawfileCharge and precursorMZ
+      # Save rawfileCharge and precursorMZ and compensation voltage
       df_res_r_i[,"rawfileCharge"] <- df_index_r_i$PrecursorCharge
       df_res_r_i[,"precursorMz"] <- df_index_r_i$PrecursorMz
+      df_res_r_i[,"compensationVoltage"] <- df_index_r_i$CV
       
       
       ## A) Extract reporter intensities of PSM i, identical in code to MSnBase quantify(method="max"). Also extract PIC (Total Peptide Ion Current in MS2 scan), and min Intensity of MS2 scans
@@ -263,7 +265,7 @@ extract_spectral_features_in_parallel <- function(rawfilefolder_filepath = rawfi
 
 ### Write function that calculates raw-file specifc peptide density (x = mz, y = retention time) for each PSM in the PSM-table.
 calculate_peptide_density <- function(msms,
-                                      rawfile = "Raw.file",
+                                      rawfile = "Raw.file__CV",
                                       retentionTime = "Retention.time",
                                       precursorMZ = "precursorMz", 
                                       modifiedSequence = "Modified.sequence",

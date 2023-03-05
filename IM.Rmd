@@ -195,7 +195,7 @@ df_msms <- df_msms[order(df_msms$Raw.file),]
 
 ## Prepare parallel processing
 cores <- detectCores(logical = TRUE)
-cl <-makeCluster(cores - 2)
+cl <- makeCluster(cores - 2)
 registerDoParallel(cl=cl)
 
 
@@ -251,6 +251,10 @@ if (!all(spectral_features$key_msms == df_msms$unique_id)){
 df_msms <- cbind(df_msms, spectral_features[,-which(names(spectral_features) == "key_msms")])
 
 
+## Create new column that merges PSM-wise information of raw file name and compensation voltage
+df_msms[,"Raw.file__CV"] <- paste0(df_msms$Raw.file, "__", df_msms$CompensationVoltage)
+
+
 ## Compare PPF with exisitng purity metrics (if present)
 if ("PIF" %in% names(df_msms)) {plot(x=df_msms$PIF, y=df_msms$PPF, cex=0.1, xlab="PIF",ylab="PPF")}  # PIF in MaxQuant output
 if ("Purity" %in% names(df_msms)) {plot(x=df_msms$Purity, y=df_msms$PPF, cex=0.1, xlab="Purity",ylab="PPF")} # Purity in FragPipe Output
@@ -260,7 +264,7 @@ if ("Purity" %in% names(df_msms)) {plot(x=df_msms$Purity, y=df_msms$PPF, cex=0.1
 barplot(table(df_msms$parent_MS1), main="MS1-occurence of precursor peptide ion", xlab="MS1", border="grey")
 hist(df_msms$PPF, main="Distribution of Precursor Purity Fraction", xlab="Precursor Purity Fraction (PPF)", border="grey", col="grey")
 ggplot(df_msms) +
-  geom_line(aes(x=Retention.time, y=noiseValue, col=Raw.file)) +
+  geom_line(aes(x=Retention.time, y=noiseValue, col=Raw.file__CV)) +
   theme(legend.position = "bottom") 
 
 
@@ -401,7 +405,7 @@ df_msms$precursorIntensity <- df_msms$TIW*df_msms$PPF
 
 ## Calculate empirical peptide density estimated
 peptide_density <- calculate_peptide_density(msms=df_msms,              # (see functions_IM.R)
-                                             rawfile = "Raw.file",
+                                             rawfile = "Raw.file__CV",
                                              retentionTime = "Retention.time",
                                              precursorMZ = "precursorMz", 
                                              modifiedSequence = "Modified.sequence",
@@ -493,7 +497,7 @@ summary(df_msms$noiseEstimate)
 
 
 ## 4) rawfileID: This categorial variable describes the raw-file identity of the PSM. 
-df_msms$rawfileID <- factor(df_msms$Raw.file)
+df_msms$rawfileID <- factor(df_msms$Raw.file__CV)
 writeLines("\nsummaryr rawfileID:")
 summary(df_msms$rawfileID)
 
