@@ -252,7 +252,7 @@ df_msms <- cbind(df_msms, spectral_features[,-which(names(spectral_features) == 
 
 
 ## Create new column that merges PSM-wise information of raw file name and compensation voltage
-df_msms[,"Raw.file__CV"] <- paste0(df_msms$Raw.file, "__", df_msms$CompensationVoltage)
+df_msms[,"Raw.file__CV"] <- paste0(df_msms$Raw.file, "__", df_msms$compensationVoltage)
 
 
 ## Compare PPF with exisitng purity metrics (if present)
