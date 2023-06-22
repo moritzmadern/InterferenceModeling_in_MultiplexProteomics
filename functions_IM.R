@@ -89,7 +89,7 @@ extract_spectral_features_in_parallel <- function(rawfilefolder_filepath = rawfi
       scannr_i <- df_msms_i[,scan_number]
       charge_i <- df_msms_i[,charge]
       
-      #Save MS2 spectrum i from index file
+      # Save MS2 spectrum i from index file
       df_index_r_i <- df_index_r[df_index_r$ScanNumber == scannr_i, ]
       
       # Save rawfileCharge and precursorMZ and compensation voltage
