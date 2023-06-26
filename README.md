@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/605211421.svg)](https://zenodo.org/badge/latestdoi/605211421)
+
 # InterferenceModeling_in_MultiplexProteomics
 An R implementation for interference modeling and subsequent interference correction in MS2-based multiplex proteomics. Further contains a demo dataset + userguide to get familiar with the workflow.
 
