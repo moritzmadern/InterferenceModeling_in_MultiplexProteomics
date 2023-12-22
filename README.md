@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/605211421.svg)](https://zenodo.org/badge/latestdoi/605211421)
-[![MCP](https://img.shields.io/badge/MCP-8F211B.svg)](https://doi.org/10.1016/j.mcpro.2023.100694)
+[![MCP](https://img.shields.io/badge/MCP-8F211B.svg)](https://doi.org/10.1016/j.mcpro%2E2023.100694)
 
 
 # InterferenceModeling_in_MultiplexProteomics
