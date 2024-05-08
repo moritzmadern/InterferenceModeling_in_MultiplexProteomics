@@ -2,7 +2,9 @@
 [![MCP](https://img.shields.io/badge/MCP-10.1016/j.mcpro.2023.100694-8F211B.svg)](https://doi.org/10.1016/j.mcpro.2023.100694)
 
 # InterferenceModeling_in_MultiplexProteomics
-An R implementation for interference modeling and subsequent interference correction in MS2-based multiplex proteomics. Further contains a demo dataset + userguide to get familiar with the workflow.
+An R implementation for interference modeling and subsequent interference correction in MS2-based multiplex proteomics. Further contains a demo dataset + userguide to get familiar with the workflow. Here are selected visuals from said demo:
+
+![Screenshot](img/DemoFigures.png)
 
 
 
@@ -34,7 +36,7 @@ This workflow requires the **rawStallion** Windows command line application to r
 
 ## Data Output
 
-- a modified PSM table named **modified_PSM.txt**. This PSM table contains additional columns such as normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as several PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
+- A modified PSM table named **modified_PSM.txt**. This PSM table contains additional columns such as normalized reporter ion intensities (suffix `_norm`), normalized interference-corrected reporter ion intensities (suffix `_norm__interference_corrected`), as well as several PSM-wise metrics such as Estimated Interference Level (EIL), Precursor Purity Fraction (PPF), and more.
 
 
 

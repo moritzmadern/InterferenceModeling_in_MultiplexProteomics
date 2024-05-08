@@ -62,7 +62,7 @@ rawStallion.exe_filepath = "./rawStallion/rawStallion.exe"
 msms_filepath = "./msms.txt"
 
 ## Optional: Specify specific pattern of raw file names which matches the raw files to be processed. Only relevant if not all of the PSMs in your PSM table are to be processed in the script (e.g. because some come from MS3 measurements, or some need independent normalization and interference correction). If all raw files are to be processed, specify parameter as empty character "". Note that we recommend processing measurements of unmodified peptides and of any kind of PTM-enriched peptides independently from each other, as they can differ in their relative sample contribution to the total intensity.
-rawfile_pattern_to_keep = "acet"  # this filters for PSMs of the six raw files that were generated from measuring acetyl-enriched samples (more specifically, acetyl-enriched samples of pools P1 - P6), thereby discarding PSMs of all other raw files that were searched together. Note that for the demo on GitHub, this filtering step was already performed to reduce the file size of msms.txt. The original msms.txt is still available on PRIDE as part of the database search output named "MaxQuant_SiteToProteinNorm_txt.zip".
+rawfile_pattern_to_keep = "acet"  # Setting for the demo. This specific setting filters for PSMs of the six raw files that were generated from measuring acetyl-enriched samples (more specifically, acetyl-enriched samples of pools P1 - P6), thereby discarding PSMs of all other raw files that were searched together. 
 
 ## Specify name of the column denoting raw file identity for each PSM (=row) in the PSM-table. It will later be renamed as "Raw.file".
 rawfile_columnname = "Raw.file"
@@ -120,7 +120,7 @@ groups_empty = "blank"
 
 ## Note: Parameters that are described as "Optional" can be ignored if certain steps in the workflow are to be skipped. 
 ## Note: If specified correctly, no other user input is required for the remainder of the script.
-## Note: If the script produces any errors, please check if all parameters were specified correctly!
+## Note: If the script produces any errors, please first check if all parameters above were specified correctly.
 
 ```
 
@@ -209,7 +209,7 @@ print("Done.")
 stopCluster(cl)
 
 
-## Note: This code section should produce two .tsv-files per .raw file contained in the folder "rawfilefolder_filepath" by using rawStallion. If this code does not work, you might need to install some Windows extension, e.g. Windows .Net Desktop Runtime. I recommend running rawStallion.exe in the command line first (not via R) to see if and what exactly is missing! Windows will complain to you which exact extension is missing. 
+## Note: This code section should produce two tsv-files per Thermo raw file (contained in the folder "rawfilefolder_filepath") using rawStallion. If this code does not work, you might need to install some Windows extension, e.g. Windows .Net Desktop Runtime. I recommend running rawStallion.exe in the command line first (not via R) to see if and what exactly is missing! Conveniently, Windows will complain which exact extension is missing. 
 ## Note: To run rawStallion via the command line, type the following line in the Windows command line:
 # [rawStallion.exe-filepath] [rawfile-filepath]   
 # where [rawStallion.exe-filepath] is the filepath to the rawStallion.exe file, and
@@ -264,8 +264,9 @@ if ("Purity" %in% names(df_msms)) {plot(x=df_msms$Purity, y=df_msms$PPF, cex=0.1
 barplot(table(df_msms$parent_MS1), main="MS1-occurence of precursor peptide ion", xlab="MS1", border="grey")
 hist(df_msms$PPF, main="Distribution of Precursor Purity Fraction", xlab="Precursor Purity Fraction (PPF)", border="grey", col="grey")
 ggplot(df_msms) +
-  geom_line(aes(x=Retention.time, y=noiseValue, col=Raw.file__CV)) +
-  theme(legend.position = "bottom") 
+    geom_line(aes(x=Retention.time, y=noiseValue, col=Raw.file__CV)) + 
+    ylab("Noise value at precursor m/z") + xlab("Retention time") +
+    theme(legend.position = "bottom") 
 
 
 ## Save session image after MS1 feature extraction. Can be loaded at a later stage via load().
